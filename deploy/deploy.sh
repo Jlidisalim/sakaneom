@@ -27,15 +27,15 @@ set -euo pipefail
 # └──────────────────────────────────────────────────────────────────────────┘
 VPS_IP="102.204.205.132"                 # e.g. 51.83.12.34
 VPS_USER="root"                                 # SSH user (root, or a sudo-capable user)
-VPS_PASSWORD="sv252cGYXime"        # SSH password. Leave EMPTY ("") to use your SSH key instead.
+VPS_PASSWORD="${VPS_PASSWORD:-}"   # Prefer key auth; optionally pass via environment (never commit it).
 VPS_SSH_PORT="22"                               # SSH port (default 22)
 
 DOMAIN=""                                        # optional for now. e.g. sakaneom.tn (A record must point at VPS_IP)
 LETSENCRYPT_EMAIL=""                             # required only when DOMAIN is set, for TLS expiry notices
 
 ADMIN_EMAIL="admin@sakaneom.tn"                  # first Super Admin login (created on first login)
-ADMIN_PASSWORD="REPLACE_WITH_STRONG_ADMIN_PW"    # min 12 chars — this is your admin login password
-ADMIN_SESSION_SECRET=""                          # leave EMPTY: reused from the server if present, else auto-generated
+ADMIN_PASSWORD="${ADMIN_PASSWORD:-}"             # min 12 chars — pass via environment (never commit it)
+ADMIN_SESSION_SECRET="${ADMIN_SESSION_SECRET:-}" # reused from server if empty, else pass via environment
 
 SEED_DEMO_DATA="false"                           # "true" loads 5 demo accounts + sample data (only if the store is empty)
 
