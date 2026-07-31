@@ -1,7 +1,7 @@
 # SAKANEOM — one-command production deploy
 
 `deploy/deploy.sh` provisions a fresh **Ubuntu VPS** and ships the app end-to-end:
-Node 20 · nginx reverse-proxy · optional **free auto-renewing HTTPS** (Let's Encrypt) ·
+Node 24 LTS · nginx reverse-proxy · optional **free auto-renewing HTTPS** (Let's Encrypt) ·
 hardened `systemd` service · firewall · daily backups. It is **idempotent** —
 re-run it any time to redeploy (data and logged-in sessions are preserved).
 

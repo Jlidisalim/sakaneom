@@ -5,7 +5,7 @@
 #  WHAT IT DOES (idempotent — safe to re-run for redeploys):
 #    1. Builds the app LOCALLY (the exact artifact tested in CI) with your
 #       public URL baked in, then ships the self-contained .output/ to the VPS.
-#    2. Provisions Ubuntu: Node 20, nginx, certbot, ufw firewall, a locked-down
+#    2. Provisions Ubuntu: Node 24 LTS, nginx, certbot, ufw firewall, a locked-down
 #       `sakaneom` service user, and persistent data dirs OUTSIDE the deploy dir.
 #    3. Installs a hardened systemd service (single instance, auto-restart).
 #    4. Sets up nginx reverse proxy. If DOMAIN is set, also installs a FREE
@@ -173,11 +173,11 @@ APP_DIR="$APP_DIR"; DATA_DIR="$DATA_DIR"; UPLOAD_DIR="$UPLOAD_DIR"
 ENV_FILE="$ENV_FILE"; SERVICE_USER="$SERVICE_USER"; APP_PORT="$APP_PORT"
 DOMAIN="$DOMAIN"; LE_EMAIL="$LETSENCRYPT_EMAIL"; NGINX_SERVER_NAME="$NGINX_SERVER_NAME"
 
-echo "── Installing packages (Node 20, nginx, certbot, ufw, rsync) ──"
+echo "── Installing packages (Node 24 LTS, nginx, certbot, ufw, rsync) ──"
 apt-get update -y -qq
 apt-get install -y -qq ca-certificates curl gnupg rsync ufw nginx >/dev/null
-if ! command -v node >/dev/null || ! node -v | grep -q '^v2[0-9]'; then
-  curl -fsSL https://deb.nodesource.com/setup_20.x | bash - >/dev/null 2>&1
+if ! command -v node >/dev/null || ! node -v | grep -q '^v24\.'; then
+  curl -fsSL https://deb.nodesource.com/setup_24.x | bash - >/dev/null 2>&1
   apt-get install -y -qq nodejs >/dev/null
 fi
 apt-get install -y -qq certbot python3-certbot-nginx >/dev/null
